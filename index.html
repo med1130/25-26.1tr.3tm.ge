@@ -7,106 +7,112 @@
 <style>
     body {
         font-family: "Segoe UI", Tahoma, sans-serif;
-        background: radial-gradient(circle, #0a0f17, #000000);
+        background: linear-gradient(135deg, #02040a, #0c111a, #000000);
         color: #e6e6e6;
         text-align: center;
-        padding-top: 60px;
+        padding-top: 50px;
     }
 
-    h2, p {
-        margin: 10px 20px;
+    h2 {
+        font-size: 30px;
+        margin-bottom: 10px;
+        color: #00ffcc;
+        text-shadow: 0 0 12px #00ffcc55;
     }
 
-    .countdown-container {
-        margin-top: 40px;
+    p {
+        font-size: 20px;
+        margin-bottom: 40px;
+    }
+
+    .countdown-wrapper {
         display: flex;
         justify-content: center;
-        gap: 20px;
+        margin-top: 40px;
+        gap: 40px;
         flex-wrap: wrap;
     }
 
-    .unit {
-        background: rgba(0, 255, 170, 0.08);
-        padding: 20px;
-        width: 120px;
-        border-radius: 12px;
-        border: 2px solid #00ffaa33;
-        box-shadow: 0 0 12px #00ffcc44;
-        backdrop-filter: blur(5px);
+    /* صندوق لكل وحدة (ساعات / دقائق / ثواني) */
+    .segment-box {
+        background: #00110c;
+        padding: 25px 30px;
+        border-radius: 14px;
+        border: 3px solid #00ffaa33;
+        box-shadow: 0px 0px 18px #00ffcc55 inset, 0 0 15px #00ffcc33;
+        width: 180px;
     }
 
     .number {
-        font-size: 40px;
+        font-size: 68px;
         font-weight: bold;
         color: #00ffcc;
-        text-shadow: 0 0 10px #00ffaa;
         font-family: "Digital-7", monospace;
+        text-shadow: 
+            0 0 12px #00ffaa, 
+            0 0 22px #00ffaa,
+            0 0 32px #00ffaa88;
     }
 
     .label {
-        margin-top: 5px;
-        font-size: 16px;
+        margin-top: 8px;
+        display: block;
+        font-size: 22px;
         color: #7ef2d3;
+        letter-spacing: 2px;
     }
 
-    /* خطوط رقمية */
+    /* خط المرقن 7 قطع */
     @font-face {
         font-family: "Digital-7";
-        src: local("Digital-7"), url("https://fonts.cdnfonts.com/s/17874/Digital7.woff") format("woff");
+        src: url("https://fonts.cdnfonts.com/s/17874/Digital7.woff") format("woff");
     }
-
 </style>
 </head>
 
 <body>
 
 <h2>الاختبار مبرمج يوم 9 ديسمبر 2025</h2>
-<p>سيتم نشر التصحيح النموذجي وسلّم التنقيط مباشرة بعد انتهاء الامتحان يوم 9 ديسمبر على الساعة 12:00.</p>
+<p>سيتم نشر التصحيح النموذجي وسلّم التنقيط مباشرة بعد انتهاء الامتحان على الساعة 12:00.</p>
 
-<div class="countdown-container">
-    <div class="unit">
-        <div class="number" id="days">0</div>
-        <div class="label">الأيام</div>
+<div class="countdown-wrapper">
+    <div class="segment-box">
+        <div class="number" id="hours">00</div>
+        <span class="label">الساعات</span>
     </div>
 
-    <div class="unit">
-        <div class="number" id="hours">0</div>
-        <div class="label">الساعات</div>
+    <div class="segment-box">
+        <div class="number" id="minutes">00</div>
+        <span class="label">الدقائق</span>
     </div>
 
-    <div class="unit">
-        <div class="number" id="minutes">0</div>
-        <div class="label">الدقائق</div>
-    </div>
-
-    <div class="unit">
-        <div class="number" id="seconds">0</div>
-        <div class="label">الثواني</div>
+    <div class="segment-box">
+        <div class="number" id="seconds">00</div>
+        <span class="label">الثواني</span>
     </div>
 </div>
 
 <script>
-// موعد النشر: 9 ديسمبر 2025 على الساعة 12:00
+// التوقيت: 9 ديسمبر 2025 الساعة 12:00
 const targetDate = new Date("2025-12-09T12:00:00").getTime();
 
-const timer = setInterval(() => {
+setInterval(() => {
     const now = new Date().getTime();
-    const diff = targetDate - now;
+    let diff = targetDate - now;
 
+    // عند انتهاء الوقت → توجيه لصفحة الحل
     if (diff <= 0) {
-        clearInterval(timer);
         window.location.href = "solution.html";
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2,"0");
+    const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2,"0");
+    const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2,"0");
 
-    document.getElementById("days").textContent = days;
     document.getElementById("hours").textContent = hours;
     document.getElementById("minutes").textContent = minutes;
     document.getElementById("seconds").textContent = seconds;
+
 }, 1000);
 </script>
 
