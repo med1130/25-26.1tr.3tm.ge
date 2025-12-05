@@ -1,70 +1,151 @@
-/* خلفية الصفحة */
 body {
+    background: radial-gradient(circle at top, #0c1119 10%, #05070a 90%);
     margin: 0;
     padding: 0;
-    background: radial-gradient(circle at center, #0a0f16 20%, #05070a 80%);
-    font-family: "Cairo", sans-serif;
-    color: #00ffcc;
     text-align: center;
+    font-family: "Cairo", sans-serif;
+    color: #00ffd5;
 }
 
-/* العنوان */
 h1 {
-    font-size: 34px;
     margin-top: 40px;
-    color: #00ffc8;
-    text-shadow: 0 0 15px #00ffcc, 0 0 40px rgba(0,255,204,0.3);
+    font-size: 32px;
+    text-shadow: 0 0 20px #00ffd5;
 }
 
-/* النص أسفل العنوان */
 p {
-    font-size: 20px;
-    color: #b5f7e5;
-    margin-top: -10px;
+    font-size: 18px;
+    color: #b8fff0;
     margin-bottom: 40px;
 }
 
-/* كتلة العداد */
 #countdown {
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 40px;
     flex-wrap: wrap;
 }
 
-/* تصميم صندوق كل رقم (7-segment style) */
-.segment-display {
-    padding: 20px;
-    background: rgba(0, 255, 200, 0.06);
-    border-radius: 18px;
-    width: 130px;
-    box-shadow: 0 0 25px rgba(0, 255, 180, 0.25),
-                inset 0 0 8px rgba(0, 255, 180, 0.25);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(0,255,200,0.15);
+/* كل وحدة (الساعات – الدقائق – الثواني) */
+.unit {
+    text-align: center;
 }
 
-/* رقم العداد: فونت ديجيتال */
-@font-face {
-    font-family: 'Digital-7';
-    src: url('https://assets.codepen.io/430361/digital-7.ttf');
+/* صندوق الرقم الكامل */
+.seven-seg {
+    display: flex;
+    gap: 10px;
 }
 
-.segment-number {
-    font-size: 65px;
-    font-weight: bold;
-    font-family: 'Digital-7', monospace;
-    color: #00ffcc;
-    text-shadow: 
-        0 0 12px #00ffcc,
-        0 0 25px rgba(0, 255, 200, 0.7),
-        0 0 50px rgba(0, 255, 200, 0.4);
+/* كل رقم مكون من 7 قطع */
+.digit {
+    position: relative;
+    width: 60px;
+    height: 100px;
 }
 
-/* كتابة (الساعات – الدقائق – الثواني) */
+/* القطع السبعة */
+.digit::before,
+.digit::after,
+.digit .seg {
+    content: "";
+    position: absolute;
+    background: rgba(0,255,200,0.15);
+    box-shadow: 0 0 8px rgba(0,255,200,0.4);
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.seg-on {
+    background: #00ffd5;
+    box-shadow: 0 0 12px #00ffd5, 0 0 40px #00ffd5;
+}
+
+/* تحديد أماكن القطع */
+/* A */
+.digit[data-digit]::before {
+    width: 40px;
+    height: 8px;
+    top: 0;
+    left: 10px;
+}
+
+/* تحديد القطع الباقية */
+.digit .seg {
+    position: absolute;
+}
+
+/* B */
+.digit .b { width: 8px; height: 40px; top: 10px; right: 0; }
+/* C */
+.digit .c { width: 8px; height: 40px; bottom: 10px; right: 0; }
+/* D */
+.digit .d { width: 40px; height: 8px; bottom: 0; left: 10px; }
+/* E */
+.digit .e { width: 8px; height: 40px; bottom: 10px; left: 0; }
+/* F */
+.digit .f { width: 8px; height: 40px; top: 10px; left: 0; }
+/* G */
+.digit .g { width: 40px; height: 8px; top: 46px; left: 10px; }
+
+/* تشغيل القطع حسب الرقم */
+.digit[data-digit="0"] .a,
+.digit[data-digit="0"] .b,
+.digit[data-digit="0"] .c,
+.digit[data-digit="0"] .d,
+.digit[data-digit="0"] .e,
+.digit[data-digit="0"] .f { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
+
+.digit[data-digit="1"] .b,
+.digit[data-digit="1"] .c { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
+
+.digit[data-digit="2"] .a,
+.digit[data-digit="2"] .b,
+.digit[data-digit="2"] .g,
+.digit[data-digit="2"] .e,
+.digit[data-digit="2"] .d { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
+
+.digit[data-digit="3"] .a,
+.digit[data-digit="3"] .b,
+.digit[data-digit="3"] .g,
+.digit[data-digit="3"] .c,
+.digit[data-digit="3"] .d { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
+
+.digit[data-digit="4"] .f,
+.digit[data-digit="4"] .g,
+.digit[data-digit="4"] .b,
+.digit[data-digit="4"] .c { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
+
+.digit[data-digit="5"] .a,
+.digit[data-digit="5"] .f,
+.digit[data-digit="5"] .g,
+.digit[data-digit="5"] .c,
+.digit[data-digit="5"] .d { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
+
+.digit[data-digit="6"] .a,
+.digit[data-digit="6"] .f,
+.digit[data-digit="6"] .g,
+.digit[data-digit="6"] .e,
+.digit[data-digit="6"] .c,
+.digit[data-digit="6"] .d { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
+
+.digit[data-digit="7"] .a,
+.digit[data-digit="7"] .b,
+.digit[data-digit="7"] .c { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
+
+.digit[data-digit="8"] div { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
+
+.digit[data-digit="9"] .a,
+.digit[data-digit="9"] .b,
+.digit[data-digit="9"] .c,
+.digit[data-digit="9"] .f,
+.digit[data-digit="9"] .g { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
+
+/* عنوان الوحدات */
 .label {
-    margin-top: -10px;
-    font-size: 22px;
-    color: #7fffe2;
-    text-shadow: 0 0 8px rgba(0,255,204,0.5);
+    font-size: 20px;
+    color: #9fffe8;
+    text-shadow: 0 0 10px #00ffd5;
+    margin-top: 10px;
+    display: block;
 }
