@@ -1,0 +1,70 @@
+/* خلفية الصفحة */
+body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at center, #0a0f16 20%, #05070a 80%);
+    font-family: "Cairo", sans-serif;
+    color: #00ffcc;
+    text-align: center;
+}
+
+/* العنوان */
+h1 {
+    font-size: 34px;
+    margin-top: 40px;
+    color: #00ffc8;
+    text-shadow: 0 0 15px #00ffcc, 0 0 40px rgba(0,255,204,0.3);
+}
+
+/* النص أسفل العنوان */
+p {
+    font-size: 20px;
+    color: #b5f7e5;
+    margin-top: -10px;
+    margin-bottom: 40px;
+}
+
+/* كتلة العداد */
+#countdown {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+/* تصميم صندوق كل رقم (7-segment style) */
+.segment-display {
+    padding: 20px;
+    background: rgba(0, 255, 200, 0.06);
+    border-radius: 18px;
+    width: 130px;
+    box-shadow: 0 0 25px rgba(0, 255, 180, 0.25),
+                inset 0 0 8px rgba(0, 255, 180, 0.25);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0,255,200,0.15);
+}
+
+/* رقم العداد: فونت ديجيتال */
+@font-face {
+    font-family: 'Digital-7';
+    src: url('https://assets.codepen.io/430361/digital-7.ttf');
+}
+
+.segment-number {
+    font-size: 65px;
+    font-weight: bold;
+    font-family: 'Digital-7', monospace;
+    color: #00ffcc;
+    text-shadow: 
+        0 0 12px #00ffcc,
+        0 0 25px rgba(0, 255, 200, 0.7),
+        0 0 50px rgba(0, 255, 200, 0.4);
+}
+
+/* كتابة (الساعات – الدقائق – الثواني) */
+.label {
+    margin-top: -10px;
+    font-size: 22px;
+    color: #7fffe2;
+    text-shadow: 0 0 8px rgba(0,255,204,0.5);
+}
