@@ -2,118 +2,57 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>الاختبار</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>العد التنازلي</title>
 
-<style>
-    body {
-        font-family: "Segoe UI", Tahoma, sans-serif;
-        background: linear-gradient(135deg, #02040a, #0c111a, #000000);
-        color: #e6e6e6;
-        text-align: center;
-        padding-top: 50px;
-    }
+<!-- ربط ملف CSS الخارجي -->
+<link rel="stylesheet" href="style.css">
 
-    h2 {
-        font-size: 30px;
-        margin-bottom: 10px;
-        color: #00ffcc;
-        text-shadow: 0 0 12px #00ffcc55;
-    }
-
-    p {
-        font-size: 20px;
-        margin-bottom: 40px;
-    }
-
-    .countdown-wrapper {
-        display: flex;
-        justify-content: center;
-        margin-top: 40px;
-        gap: 40px;
-        flex-wrap: wrap;
-    }
-
-    /* صندوق لكل وحدة (ساعات / دقائق / ثواني) */
-    .segment-box {
-        background: #00110c;
-        padding: 25px 30px;
-        border-radius: 14px;
-        border: 3px solid #00ffaa33;
-        box-shadow: 0px 0px 18px #00ffcc55 inset, 0 0 15px #00ffcc33;
-        width: 180px;
-    }
-
-    .number {
-        font-size: 68px;
-        font-weight: bold;
-        color: #00ffcc;
-        font-family: "Digital-7", monospace;
-        text-shadow: 
-            0 0 12px #00ffaa, 
-            0 0 22px #00ffaa,
-            0 0 32px #00ffaa88;
-    }
-
-    .label {
-        margin-top: 8px;
-        display: block;
-        font-size: 22px;
-        color: #7ef2d3;
-        letter-spacing: 2px;
-    }
-
-    /* خط المرقن 7 قطع */
-    @font-face {
-        font-family: "Digital-7";
-        src: url("https://fonts.cdnfonts.com/s/17874/Digital7.woff") format("woff");
-    }
-</style>
 </head>
-
 <body>
 
-<h2>الاختبار مبرمج يوم 9 ديسمبر 2025</h2>
-<p>سيتم نشر التصحيح النموذجي وسلّم التنقيط مباشرة بعد انتهاء الامتحان على الساعة 12:00.</p>
+<h1>الاختبار مبرمج يوم 9 ديسمبر 2025</h1>
+<p>سيتم نشر التصحيح النموذجي وسلم التنقيط مباشرة بعد انتهاء الامتحان على الساعة 12:00</p>
 
-<div class="countdown-wrapper">
-    <div class="segment-box">
-        <div class="number" id="hours">00</div>
-        <span class="label">الساعات</span>
+<div id="countdown">
+    <div class="segment-display">
+        <div class="segment-number" id="hours">00</div>
+        <div class="label">الساعات</div>
     </div>
 
-    <div class="segment-box">
-        <div class="number" id="minutes">00</div>
-        <span class="label">الدقائق</span>
+    <div class="segment-display">
+        <div class="segment-number" id="minutes">00</div>
+        <div class="label">الدقائق</div>
     </div>
 
-    <div class="segment-box">
-        <div class="number" id="seconds">00</div>
-        <span class="label">الثواني</span>
+    <div class="segment-display">
+        <div class="segment-number" id="seconds">00</div>
+        <div class="label">الثواني</div>
     </div>
 </div>
 
 <script>
-// التوقيت: 9 ديسمبر 2025 الساعة 12:00
-const targetDate = new Date("2025-12-09T12:00:00").getTime();
+    const targetTime = new Date("2025-12-09T12:00:00").getTime();
 
-setInterval(() => {
-    const now = new Date().getTime();
-    let diff = targetDate - now;
+    const timer = setInterval(function () {
+        const now = new Date().getTime();
+        const distance = targetTime - now;
 
-    // عند انتهاء الوقت → توجيه لصفحة الحل
-    if (diff <= 0) {
-        window.location.href = "solution.html";
-    }
+        if (distance <= 0) {
+            clearInterval(timer);
+            window.location.href = "correction.html";
+            return;
+        }
 
-    const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2,"0");
-    const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2,"0");
-    const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2,"0");
+        const hours = Math.floor((distance / (1000 * 60 * 60)));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
+        document.getElementById("hours").textContent = ("0" + hours).slice(-2);
+        document.getElementById("minutes").textContent = ("0" + minutes).slice(-2);
+        document.getElementById("seconds").textContent = ("0" + seconds).slice(-2);
 
-}, 1000);
+    }, 1000);
 </script>
 
 </body>
