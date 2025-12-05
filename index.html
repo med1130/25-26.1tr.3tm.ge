@@ -4,55 +4,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>العد التنازلي</title>
-
-<!-- ربط ملف CSS الخارجي -->
 <link rel="stylesheet" href="style.css">
-
 </head>
+
 <body>
 
 <h1>الاختبار مبرمج يوم 9 ديسمبر 2025</h1>
-<p>سيتم نشر التصحيح النموذجي وسلم التنقيط مباشرة بعد انتهاء الامتحان على الساعة 12:00</p>
+<p>سيتم نشر التصحيح النموذجي وسلم التنقيط بعد انتهاء الامتحان مباشرة على الساعة 12:00</p>
 
 <div id="countdown">
-    <div class="segment-display">
-        <div class="segment-number" id="hours">00</div>
-        <div class="label">الساعات</div>
+    <div class="unit">
+        <div class="seven-seg" id="hours"></div>
+        <span class="label">الساعات</span>
     </div>
 
-    <div class="segment-display">
-        <div class="segment-number" id="minutes">00</div>
-        <div class="label">الدقائق</div>
+    <div class="unit">
+        <div class="seven-seg" id="minutes"></div>
+        <span class="label">الدقائق</span>
     </div>
 
-    <div class="segment-display">
-        <div class="segment-number" id="seconds">00</div>
-        <div class="label">الثواني</div>
+    <div class="unit">
+        <div class="seven-seg" id="seconds"></div>
+        <span class="label">الثواني</span>
     </div>
 </div>
 
 <script>
-    const targetTime = new Date("2025-12-09T12:00:00").getTime();
+function createSegment(numberElement, value) {
+    const digits = value.toString().padStart(2,"0");
+    numberElement.innerHTML = "";
 
-    const timer = setInterval(function () {
-        const now = new Date().getTime();
-        const distance = targetTime - now;
+    [...digits].forEach(d => {
+        const digit = document.createElement("div");
+        digit.className = "digit";
+        digit.setAttribute("data-digit", d);
+        numberElement.appendChild(digit);
+    });
+}
 
-        if (distance <= 0) {
-            clearInterval(timer);
-            window.location.href = "correction.html";
-            return;
-        }
+const target = new Date("2025-12-09T12:00:00").getTime();
 
-        const hours = Math.floor((distance / (1000 * 60 * 60)));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+setInterval(() => {
+    const now = Date.now();
+    const diff = target - now;
 
-        document.getElementById("hours").textContent = ("0" + hours).slice(-2);
-        document.getElementById("minutes").textContent = ("0" + minutes).slice(-2);
-        document.getElementById("seconds").textContent = ("0" + seconds).slice(-2);
+    if (diff <= 0) {
+        location.href = "correction.html";
+        return;
+    }
 
-    }, 1000);
+    const hours = Math.floor(diff / 1000 / 60 / 60);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    createSegment(document.getElementById("hours"), hours);
+    createSegment(document.getElementById("minutes"), minutes);
+    createSegment(document.getElementById("seconds"), seconds);
+
+}, 1000);
 </script>
 
 </body>
