@@ -1,31 +1,92 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>الاختبار</title>
+
 <style>
     body {
-        font-family: sans-serif;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: radial-gradient(circle, #0a0f17, #000000);
+        color: #e6e6e6;
         text-align: center;
-        margin-top: 60px;
+        padding-top: 60px;
     }
-    #countdown {
-        font-size: 28px;
-        margin-top: 25px;
+
+    h2, p {
+        margin: 10px 20px;
+    }
+
+    .countdown-container {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .unit {
+        background: rgba(0, 255, 170, 0.08);
+        padding: 20px;
+        width: 120px;
+        border-radius: 12px;
+        border: 2px solid #00ffaa33;
+        box-shadow: 0 0 12px #00ffcc44;
+        backdrop-filter: blur(5px);
+    }
+
+    .number {
+        font-size: 40px;
         font-weight: bold;
+        color: #00ffcc;
+        text-shadow: 0 0 10px #00ffaa;
+        font-family: "Digital-7", monospace;
     }
+
+    .label {
+        margin-top: 5px;
+        font-size: 16px;
+        color: #7ef2d3;
+    }
+
+    /* خطوط رقمية */
+    @font-face {
+        font-family: "Digital-7";
+        src: local("Digital-7"), url("https://fonts.cdnfonts.com/s/17874/Digital7.woff") format("woff");
+    }
+
 </style>
 </head>
+
 <body>
 
 <h2>الاختبار مبرمج يوم 9 ديسمبر 2025</h2>
-<p>سيتم نشر التصحيح النموذجي للاختبار مع سلم التنقيط بعد الامتحان يوم 9 ديسمبر على الساعة 12:00.</p>
+<p>سيتم نشر التصحيح النموذجي وسلّم التنقيط مباشرة بعد انتهاء الامتحان يوم 9 ديسمبر على الساعة 12:00.</p>
 
-<h3>الوقت المتبقي:</h3>
-<div id="countdown"></div>
+<div class="countdown-container">
+    <div class="unit">
+        <div class="number" id="days">0</div>
+        <div class="label">الأيام</div>
+    </div>
+
+    <div class="unit">
+        <div class="number" id="hours">0</div>
+        <div class="label">الساعات</div>
+    </div>
+
+    <div class="unit">
+        <div class="number" id="minutes">0</div>
+        <div class="label">الدقائق</div>
+    </div>
+
+    <div class="unit">
+        <div class="number" id="seconds">0</div>
+        <div class="label">الثواني</div>
+    </div>
+</div>
 
 <script>
-// وقت نشر التصحيح (9 ديسمبر 2025 على الساعة 12:00)
+// موعد النشر: 9 ديسمبر 2025 على الساعة 12:00
 const targetDate = new Date("2025-12-09T12:00:00").getTime();
 
 const timer = setInterval(() => {
@@ -34,7 +95,7 @@ const timer = setInterval(() => {
 
     if (diff <= 0) {
         clearInterval(timer);
-        window.location.href = "solution.html"; // توجيه تلقائي
+        window.location.href = "solution.html";
     }
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -42,8 +103,10 @@ const timer = setInterval(() => {
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    document.getElementById("countdown").textContent =
-        `${days} يوم — ${hours} ساعة — ${minutes} دقيقة — ${seconds} ثانية`;
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
 }, 1000);
 </script>
 
