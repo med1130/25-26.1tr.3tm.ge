@@ -1,151 +1,60 @@
 body {
-    background: radial-gradient(circle at top, #0c1119 10%, #05070a 90%);
     margin: 0;
     padding: 0;
-    text-align: center;
+    background: #02050a;
+    color: #28f7d1;
     font-family: "Cairo", sans-serif;
-    color: #00ffd5;
+    text-align: center;
 }
 
-h1 {
-    margin-top: 40px;
+.title {
+    margin-top: 30px;
     font-size: 32px;
-    text-shadow: 0 0 20px #00ffd5;
+    text-shadow: 0 0 10px #28f7d1;
 }
 
-p {
+.subtitle {
     font-size: 18px;
-    color: #b8fff0;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    text-shadow: 0 0 8px #19c7b0;
 }
 
 #countdown {
     display: flex;
     justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
+    gap: 50px;
+    margin-top: 40px;
 }
 
-/* كل وحدة (الساعات – الدقائق – الثواني) */
-.unit {
+.time-box {
     text-align: center;
 }
 
-/* صندوق الرقم الكامل */
-.seven-seg {
+.time-box span {
+    display: block;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.digit {
     display: flex;
     gap: 10px;
 }
 
-/* كل رقم مكون من 7 قطع */
-.digit {
-    position: relative;
+.seven-seg {
+    background: #0b1e22;
     width: 60px;
     height: 100px;
-}
+    font-size: 70px;
+    font-weight: bold;
+    color: #28f7d1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
 
-/* القطع السبعة */
-.digit::before,
-.digit::after,
-.digit .seg {
-    content: "";
-    position: absolute;
-    background: rgba(0,255,200,0.15);
-    box-shadow: 0 0 8px rgba(0,255,200,0.4);
-    border-radius: 6px;
-    transition: background 0.2s;
-}
-
-.seg-on {
-    background: #00ffd5;
-    box-shadow: 0 0 12px #00ffd5, 0 0 40px #00ffd5;
-}
-
-/* تحديد أماكن القطع */
-/* A */
-.digit[data-digit]::before {
-    width: 40px;
-    height: 8px;
-    top: 0;
-    left: 10px;
-}
-
-/* تحديد القطع الباقية */
-.digit .seg {
-    position: absolute;
-}
-
-/* B */
-.digit .b { width: 8px; height: 40px; top: 10px; right: 0; }
-/* C */
-.digit .c { width: 8px; height: 40px; bottom: 10px; right: 0; }
-/* D */
-.digit .d { width: 40px; height: 8px; bottom: 0; left: 10px; }
-/* E */
-.digit .e { width: 8px; height: 40px; bottom: 10px; left: 0; }
-/* F */
-.digit .f { width: 8px; height: 40px; top: 10px; left: 0; }
-/* G */
-.digit .g { width: 40px; height: 8px; top: 46px; left: 10px; }
-
-/* تشغيل القطع حسب الرقم */
-.digit[data-digit="0"] .a,
-.digit[data-digit="0"] .b,
-.digit[data-digit="0"] .c,
-.digit[data-digit="0"] .d,
-.digit[data-digit="0"] .e,
-.digit[data-digit="0"] .f { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
-
-.digit[data-digit="1"] .b,
-.digit[data-digit="1"] .c { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
-
-.digit[data-digit="2"] .a,
-.digit[data-digit="2"] .b,
-.digit[data-digit="2"] .g,
-.digit[data-digit="2"] .e,
-.digit[data-digit="2"] .d { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
-
-.digit[data-digit="3"] .a,
-.digit[data-digit="3"] .b,
-.digit[data-digit="3"] .g,
-.digit[data-digit="3"] .c,
-.digit[data-digit="3"] .d { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
-
-.digit[data-digit="4"] .f,
-.digit[data-digit="4"] .g,
-.digit[data-digit="4"] .b,
-.digit[data-digit="4"] .c { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
-
-.digit[data-digit="5"] .a,
-.digit[data-digit="5"] .f,
-.digit[data-digit="5"] .g,
-.digit[data-digit="5"] .c,
-.digit[data-digit="5"] .d { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
-
-.digit[data-digit="6"] .a,
-.digit[data-digit="6"] .f,
-.digit[data-digit="6"] .g,
-.digit[data-digit="6"] .e,
-.digit[data-digit="6"] .c,
-.digit[data-digit="6"] .d { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
-
-.digit[data-digit="7"] .a,
-.digit[data-digit="7"] .b,
-.digit[data-digit="7"] .c { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
-
-.digit[data-digit="8"] div { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
-
-.digit[data-digit="9"] .a,
-.digit[data-digit="9"] .b,
-.digit[data-digit="9"] .c,
-.digit[data-digit="9"] .f,
-.digit[data-digit="9"] .g { background:#00ffd5; box-shadow:0 0 12px #00ffd5; }
-
-/* عنوان الوحدات */
-.label {
-    font-size: 20px;
-    color: #9fffe8;
-    text-shadow: 0 0 10px #00ffd5;
-    margin-top: 10px;
-    display: block;
+    box-shadow:
+        0 0 10px #28f7d1,
+        inset 0 0 10px #28f7d1,
+        0 0 30px #0ff;
 }
