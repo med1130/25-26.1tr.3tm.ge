@@ -1,73 +1,124 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الاختبار</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>صفحة الانتظار</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0d0d0d;
+            color: #00ff99;
+            font-family: Tahoma, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 20px 10px;
+            line-height: 1.5;
+        }
+
+        .countdown-container {
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .digit-box {
+            background: #000;
+            border: 3px solid #00ff99;
+            border-radius: 12px;
+            padding: 15px;
+            width: 90px;
+            text-align: center;
+            box-shadow: 0 0 15px #00ff99;
+        }
+
+        .digit {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 3px;
+            color: #00ff99;
+            text-shadow: 0 0 12px #00ff99;
+        }
+
+        .label {
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.3rem;
+            }
+            .digit-box {
+                width: 75px;
+                padding: 10px;
+            }
+            .digit {
+                font-size: 2.4rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1 class="title">الاختبار مبرمج يوم 9 ديسمبر 2025</h1>
+    <h1>
+        الاختبار مبرمج يوم<br>
+        9 ديسمبر 2025<br><br>
+        سيتم نشر التصحيح النموذجي وسلّم التنقيط<br>
+        يوم 9 ديسمبر على الساعة 12:00
+    </h1>
 
-<p class="subtitle">
-سيتم نشر التصحيح النموذجي وسلم التنقيط بعد انتهاء الامتحان يوم 9 ديسمبر على الساعة 12:00
-</p>
+    <div class="countdown-container">
+        <div class="digit-box">
+            <div id="hours" class="digit">00</div>
+            <div class="label">ساعات</div>
+        </div>
 
-<div id="countdown">
+        <div class="digit-box">
+            <div id="minutes" class="digit">00</div>
+            <div class="label">دقائق</div>
+        </div>
 
-    <div class="time-box">
-        <div class="digit" id="hours"></div>
-        <span>الساعات</span>
+        <div class="digit-box">
+            <div id="seconds" class="digit">00</div>
+            <div class="label">ثواني</div>
+        </div>
     </div>
 
-    <div class="time-box">
-        <div class="digit" id="minutes"></div>
-        <span>الدقائق</span>
-    </div>
+    <script>
+        const targetTime = new Date("Dec 9, 2025 12:00:00").getTime();
 
-    <div class="time-box">
-        <div class="digit" id="seconds"></div>
-        <span>الثواني</span>
-    </div>
+        const timer = setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetTime - now;
 
-</div>
+            if (diff <= 0) {
+                clearInterval(timer);
+                window.location.href = "solution.html";
+            }
 
-<script>
-// التاريخ المستهدف
-const targetDate = new Date("December 9, 2025 12:00:00").getTime();
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / (1000 * 60)) % 60);
+            const s = Math.floor((diff / 1000) % 60);
 
-function updateTimer() {
-    const now = new Date().getTime();
-    const diff = targetDate - now;
-
-    // عند انتهاء العدّاد
-    if (diff <= 0) {
-        window.location.href = "solution.html";
-        return;
-    }
-
-    const h = Math.floor(diff / (1000 * 60 * 60));
-    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-    document.getElementById("hours").innerHTML = create7Segment(h);
-    document.getElementById("minutes").innerHTML = create7Segment(m);
-    document.getElementById("seconds").innerHTML = create7Segment(s);
-}
-
-function create7Segment(num) {
-    let n = num.toString().padStart(2, "0");
-    return `
-        <div class="seven-seg">${n[0]}</div>
-        <div class="seven-seg">${n[1]}</div>
-    `;
-}
-
-setInterval(updateTimer, 1000);
-updateTimer();
-</script>
+            document.getElementById("hours").innerText = String(h).padStart(2, "0");
+            document.getElementById("minutes").innerText = String(m).padStart(2, "0");
+            document.getElementById("seconds").innerText = String(s).padStart(2, "0");
+        }, 1000);
+    </script>
 
 </body>
 </html>
