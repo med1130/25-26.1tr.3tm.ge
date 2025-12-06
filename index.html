@@ -1,72 +1,76 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحة الانتظار</title>
 
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: #0d0d0d;
+            background: #0c0c0c;
             color: #00ff99;
             font-family: Tahoma, sans-serif;
             display: flex;
             flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
+            padding: 20px 10px;
         }
 
         h1 {
-            font-size: 2rem;
-            margin: 20px 10px;
-            line-height: 1.5;
+            font-size: 1.9rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
 
-        .countdown-container {
-            margin-top: 25px;
+        .countdown {
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: nowrap;
             justify-content: center;
-            flex-wrap: wrap;
             width: 100%;
+            max-width: 350px;
         }
 
-        .digit-box {
+        .box {
             background: #000;
             border: 3px solid #00ff99;
             border-radius: 12px;
-            padding: 15px;
-            width: 90px;
-            text-align: center;
-            box-shadow: 0 0 15px #00ff99;
+            padding: 10px 0;
+            width: 33%;
+            box-shadow: 0 0 14px #00ff99;
         }
 
-        .digit {
-            font-size: 3rem;
-            font-weight: bold;
+        .num {
+            font-size: 2.8rem;
             font-family: 'Courier New', monospace;
-            letter-spacing: 3px;
+            font-weight: bold;
             color: #00ff99;
             text-shadow: 0 0 12px #00ff99;
         }
 
         .label {
-            margin-top: 5px;
-            font-size: 1rem;
+            margin-top: 4px;
+            font-size: 1.1rem;
         }
 
-        @media (max-width: 480px) {
+        /* تحسين الظهور على الهواتف الصغيرة جداً */
+        @media (max-width: 380px) {
             h1 {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
-            .digit-box {
-                width: 75px;
-                padding: 10px;
+            .num {
+                font-size: 2.2rem;
             }
-            .digit {
-                font-size: 2.4rem;
+            .label {
+                font-size: 1rem;
+            }
+            .box {
+                padding: 8px 0;
             }
         }
     </style>
@@ -75,25 +79,24 @@
 <body>
 
     <h1>
-        الاختبار مبرمج يوم<br>
-        9 ديسمبر 2025<br><br>
+        الاختبار مبرمج يوم 9 ديسمبر 2025<br>
         سيتم نشر التصحيح النموذجي وسلّم التنقيط<br>
         يوم 9 ديسمبر على الساعة 12:00
     </h1>
 
-    <div class="countdown-container">
-        <div class="digit-box">
-            <div id="hours" class="digit">00</div>
+    <div class="countdown">
+        <div class="box">
+            <div id="hours" class="num">00</div>
             <div class="label">ساعات</div>
         </div>
 
-        <div class="digit-box">
-            <div id="minutes" class="digit">00</div>
+        <div class="box">
+            <div id="minutes" class="num">00</div>
             <div class="label">دقائق</div>
         </div>
 
-        <div class="digit-box">
-            <div id="seconds" class="digit">00</div>
+        <div class="box">
+            <div id="seconds" class="num">00</div>
             <div class="label">ثواني</div>
         </div>
     </div>
@@ -114,9 +117,10 @@
             const m = Math.floor((diff / (1000 * 60)) % 60);
             const s = Math.floor((diff / 1000) % 60);
 
-            document.getElementById("hours").innerText = String(h).padStart(2, "0");
-            document.getElementById("minutes").innerText = String(m).padStart(2, "0");
-            document.getElementById("seconds").innerText = String(s).padStart(2, "0");
+            document.getElementById("hours").textContent = String(h).padStart(2, "0");
+            document.getElementById("minutes").textContent = String(m).padStart(2, "0");
+            document.getElementById("seconds").textContent = String(s).padStart(2, "0");
+
         }, 1000);
     </script>
 
