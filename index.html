@@ -1,32 +1,68 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>العد التنازلي للاختبار</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>الاختبار</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <h1 class="title">الاختبار مبرمج يوم 9 ديسمبر 2025</h1>
-<h2 class="subtitle">سيتم نشر التصحيح النموذجي وسلم التنقيط يوم 9 ديسمبر على الساعة 12:00</h2>
+<p class="subtitle">
+سيتم نشر التصحيح النموذجي وسلم التنقيط بعد انتهاء الامتحان يوم 9 ديسمبر على الساعة 12:00
+</p>
 
 <div id="countdown">
     <div class="time-box">
-        <div class="seven-seg" id="hours"></div>
+        <div class="digit" id="hours"></div>
         <span>الساعات</span>
     </div>
 
     <div class="time-box">
-        <div class="seven-seg" id="minutes"></div>
+        <div class="digit" id="minutes"></div>
         <span>الدقائق</span>
     </div>
 
     <div class="time-box">
-        <div class="seven-seg" id="seconds"></div>
+        <div class="digit" id="seconds"></div>
         <span>الثواني</span>
     </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+// تحويل التلميذ عند نهاية العدّاد
+const targetDate = new Date("December 9, 2025 12:00:00").getTime();
+
+function updateTimer() {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+        window.location.href = "solution.html";
+        return;
+    }
+
+    const h = Math.floor(diff / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById("hours").innerHTML = create7Segment(h);
+    document.getElementById("minutes").innerHTML = create7Segment(m);
+    document.getElementById("seconds").innerHTML = create7Segment(s);
+}
+
+function create7Segment(num) {
+    let n = num.toString().padStart(2, "0");
+    return `
+        <div class="seven-seg">${n[0]}</div>
+        <div class="seven-seg">${n[1]}</div>
+    `;
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+</script>
+
 </body>
 </html>
