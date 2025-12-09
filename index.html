@@ -79,52 +79,12 @@
 <body>
 
     <h1>
-        الاختبار مبرمج يوم 9 ديسمبر 2025<br>
-        سيتم نشر التصحيح النموذجي وسلّم التنقيط<br>
-     على الساعة 10:00
+        سيتم نشر التصحيح النموذجي وسلم التنقيط في وقت لاحق 
+        <br>
+        نشكركم على تفهمكم وبالتوفيق
     </h1>
 
-    <div class="countdown">
-        <div class="box">
-            <div id="hours" class="num">00</div>
-            <div class="label">ساعات</div>
-        </div>
-
-        <div class="box">
-            <div id="minutes" class="num">00</div>
-            <div class="label">دقائق</div>
-        </div>
-
-        <div class="box">
-            <div id="seconds" class="num">00</div>
-            <div class="label">ثواني</div>
-        </div>
-    </div>
-
-    <script>
-       const targetTime = new Date(2025, 11, 9, 10, 00, 0).getTime();
-
-
-        const timer = setInterval(() => {
-            const now = new Date().getTime();
-            const diff = targetTime - now;
-
-            if (diff <= 0) {
-                clearInterval(timer);
-                window.location.href = "solution.html";
-            }
-
-            const h = Math.floor(diff / (1000 * 60 * 60));
-
-            const m = Math.floor((diff / (1000 * 60)) % 60);
-            const s = Math.floor((diff / 1000) % 60);
-
-            document.getElementById("hours").textContent = String(h).padStart(2, "0");
-            document.getElementById("minutes").textContent = String(m).padStart(2, "0");
-            document.getElementById("seconds").textContent = String(s).padStart(2, "0");
-
-        }, 1000);
-    </script>
+   
 
 </body>
 </html>
