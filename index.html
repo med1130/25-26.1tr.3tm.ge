@@ -1,76 +1,63 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة الانتظار</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>التصحيح النموذجي</title>
 
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: #0c0c0c;
+            background: #0d0d0d;
             color: #00ff99;
             font-family: Tahoma, sans-serif;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
             align-items: center;
-            text-align: center;
-            padding: 20px 10px;
+            padding: 25px 10px;
         }
 
         h1 {
-            font-size: 1.9rem;
+            font-size: 2rem;
             margin-bottom: 20px;
-            line-height: 1.6;
+            text-shadow: 0 0 8px #00ff99;
         }
 
-        .countdown {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-            flex-wrap: nowrap;
-            justify-content: center;
-            width: 100%;
-            max-width: 350px;
+        p {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
         }
 
-        .box {
-            background: #000;
-            border: 3px solid #00ff99;
+        a.button {
+            display: inline-block;
+            padding: 14px 28px;
+            font-size: 1.3rem;
+            background: #00ff99;
+            color: #000;
+            text-decoration: none;
             border-radius: 12px;
-            padding: 10px 0;
-            width: 33%;
-            box-shadow: 0 0 14px #00ff99;
-        }
-
-        .num {
-            font-size: 2.8rem;
-            font-family: 'Courier New', monospace;
             font-weight: bold;
-            color: #00ff99;
-            text-shadow: 0 0 12px #00ff99;
+            box-shadow: 0 0 12px #00ff99;
+            transition: transform 0.2s ease;
         }
 
-        .label {
-            margin-top: 4px;
-            font-size: 1.1rem;
+        a.button:hover {
+            transform: scale(1.05);
         }
 
-        /* تحسين الظهور على الهواتف الصغيرة جداً */
-        @media (max-width: 380px) {
+        @media (max-width: 480px) {
             h1 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
-            .num {
-                font-size: 2.2rem;
+            p {
+                font-size: 1.1rem;
             }
-            .label {
-                font-size: 1rem;
-            }
-            .box {
-                padding: 8px 0;
+            a.button {
+                font-size: 1.1rem;
+                padding: 12px 24px;
             }
         }
     </style>
@@ -78,13 +65,17 @@
 
 <body>
 
-    <h1>
-        سيتم نشر التصحيح النموذجي وسلم التنقيط في وقت لاحق 
-        <br>
-        نشكركم على تفهمكم وبالتوفيق
-    </h1>
+    <h1>التصحيح النموذجي </h1>
 
-   
+    <p>
+        للاطلاع على التصحيح النموذجي وسلّم التنقيط<br>
+        اضغط على الزر في الأسفل
+    </p>
+
+    <!-- ضع هنا رابط التصحيح -->
+    <a href="https://drive.google.com/file/d/1UNPSU47KrYE1_MT7GzhWkaKCTNE8O8WJ/view?usp=sharing" class="button">
+        اضغط هنا لعرض التصحيح
+    </a>
 
 </body>
 </html>
